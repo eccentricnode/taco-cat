@@ -10,22 +10,26 @@ function getValue() {
 // logic function
 function checkForPalindrome(inputValue) {
     // reverse the received value
-    let noSpacingString = inputValue.replace(/[^a-zA-Z0-9]/g, "");
+    let noSpacingString = inputValue.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
     let newArrayString = [...noSpacingString];
-    let palindromeValue = newArrayString.reverse().join("").toLowerCase();
+    let palindromeValue = newArrayString.reverse().join("");
 
     // check the string, if it's a palindrome
-    if(palindromeValue == inputValue) {
-        console.log(palindromeValue)
+    if(palindromeValue == noSpacingString) {
         return palindromeValue;
     } else {
-        alert("Please put enter a value, that is a palindrome.");
+        return;
     }
-
 }
 
 // display function
 
 function displayPalindrome(palindromeValue) {
-    alert("It worked.")
+    if(palindromeValue) {
+        document.getElementById("msg").innerHTML = `Your word ${palindromeValue} is a palindrome!`;
+        document.getElementById("alert").classList.remove("invisible");
+    } else {
+        alert("Your word is not a valid palindrome. Please try again!");
+        document.getElementById("inputValue").value = "";
+    }
 }
