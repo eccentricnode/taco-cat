@@ -1,10 +1,14 @@
 // entry function 
 function getValue() {
+
+    document.getElementById("alert").classList.add("invisible");
     let inputValue = document.getElementById("inputValue").value;
 
-    let palindromeValue = checkForPalindrome(inputValue);
+    // let palindromeValue = checkForPalindrome(inputValue);
+    let palindromeValue = checkPalindrome(inputValue);
 
-    displayPalindrome(palindromeValue);
+    // displayPalindrome(palindromeValue);
+    displayMessage(palindromeValue);
 }
 
 // logic function
@@ -22,6 +26,35 @@ function checkForPalindrome(inputValue) {
     }
 }
 
+function checkPalindrome(inputValue) {
+    inputValue = inputValue.toLowerCase();
+
+    let regex = /[^a-zA-Z0-9]/gi;
+    inputValue = inputValue.replace(regex, "");
+
+    let revString = [];
+    let returnObj = {};
+
+    for (let index = inputValue.length - 1; index >= 0; index--) {
+        revString += inputValue[index];
+    }
+    
+    console.log(revString);
+    console.log(inputValue);
+
+    if(revString == inputValue){
+        returnObj.msg = "Well done! You entered a palindrome!"
+    } else {
+        returnObj.msg = "Sorry! You did not enter a palindrome!"
+    }
+
+    returnObj.reversed = revString;
+
+    console.log(returnObj);
+
+    return returnObj;
+}
+
 // display function
 
 function displayPalindrome(palindromeValue) {
@@ -32,4 +65,12 @@ function displayPalindrome(palindromeValue) {
         alert("Your word is not a valid palindrome. Please try again!");
         document.getElementById("inputValue").value = "";
     }
+}
+
+function displayMessage(returnObj) {
+    
+    document.getElementById("alertHeader").innerHTML = returnObj.msg;
+    document.getElementById("msg").innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
+    document.getElementById("alert").classList.remove("invisible");
+
 }
